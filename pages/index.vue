@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>Crypto Market Overview</h1>
-    <button @click="getCryptoData">Get Latest Crypto Data</button>
+    <h1>Real-time Crypto Market Overview</h1>
+    <button @click="getCryptoData">Get Latest Data</button>
 
     <!-- Display the list of cryptocurrencies -->
     <ul v-if="cryptos.length">
@@ -69,7 +69,7 @@ export default {
             model: 'gpt-4-0613',
             messages: [
               { role: 'system', content: 'You are a financial analyst.' },
-              { role: 'user', content: `Provide a brief and clear market summary based on the following data: ${cryptoSummary}` },
+              { role: 'user', content: `Give a very consise paragraph of tips on what a smart investor would do with this data: ${cryptoSummary}` },
             ],
           },
           {
@@ -91,7 +91,7 @@ export default {
     },
     typeOutSummary() {
       let index = 0;
-      const typingSpeed = 50; // Adjust typing speed here (milliseconds per character)
+      const typingSpeed = 10; // Adjust typing speed here (milliseconds per character)
 
       const typingInterval = setInterval(() => {
         if (index < this.summary.length) {
