@@ -2,7 +2,8 @@
   <div>
     <h1>Crypto Market Overview</h1>
     <button @click="getCryptoData">Get Latest Crypto Data</button>
-    <p v-if="summary">{{ summary }}</p>
+
+    <!-- Display the list of cryptocurrencies -->
     <ul v-if="cryptos.length">
       <li v-for="crypto in cryptos" :key="crypto.symbol">
         <strong>{{ crypto.name }} ({{ crypto.symbol }})</strong> - 
@@ -10,6 +11,12 @@
         Change: {{ crypto.changePercent24Hr }}%
       </li>
     </ul>
+
+    <!-- Display loading message while ChatGPT is analyzing -->
+    <p v-if="isLoading">Analyzing data...</p>
+
+    <!-- Display the typed summary -->
+    <p v-if="displayedSummary">{{ displayedSummary }}</p>
   </div>
 </template>
 
@@ -21,6 +28,8 @@ export default {
     return {
       cryptos: [],
       summary: null,
+      displayedSummary: '', // This will be used for the typing effect
+      isLoading: false, // To show the loading message
     };
   },
   methods: {
@@ -46,6 +55,9 @@ export default {
           changePercent24Hr: crypto.RAW.USD.CHANGEPCT24HOUR.toFixed(2),
         }));
 
+        // Show loading message while analyzing data
+        this.isLoading = true;
+
         // Use ChatGPT to generate a summary of the market conditions
         const cryptoSummary = this.cryptos.map(crypto => 
           `${crypto.name} (${crypto.symbol}): $${crypto.price} (${crypto.changePercent24Hr}% change in the last 24 hours)`
@@ -68,10 +80,27 @@ export default {
         );
 
         this.summary = chatGptResponse.data.choices[0].message.content;
+        this.isLoading = false; // Hide loading message
+        this.typeOutSummary(); // Start typing out the summary
+
       } catch (error) {
         console.error('Error:', error);
-        this.summary = "An error occurred while fetching crypto data.";
+        this.isLoading = false;
+        this.summary = "An error occurred while fetching or analyzing data.";
       }
+    },
+    typeOutSummary() {
+      let index = 0;
+      const typingSpeed = 50; // Adjust typing speed here (milliseconds per character)
+
+      const typingInterval = setInterval(() => {
+        if (index < this.summary.length) {
+          this.displayedSummary += this.summary[index];
+          index++;
+        } else {
+          clearInterval(typingInterval);
+        }
+      }, typingSpeed);
     },
   },
 };
