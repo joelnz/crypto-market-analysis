@@ -1,3 +1,3 @@
 # crypto-market-analysis
 
-This project is a real-time crypto market analysis tool built with Vue.js and Nuxt.js, utilizing Retrieval-Augmented Generation (RAG) techniques with GPT-4. It fetches cryptocurrency data via the CryptoCompare API and provides concise market analysis and investment tips using the OpenAI GPT-4 model. The application features a retro DOS-style interface with animated text effects, delivering an engaging and nostalgic user experience.
+This project is a real-time crypto market analysis tool built with Vue.js and Nuxt.js. It uses Retrieval-Augmented Generation (RAG) with GPT-4 to pull in cryptocurrency data from the CryptoCompare API and then provides quick investment tips, using OpenAI's GPT-4 model.
