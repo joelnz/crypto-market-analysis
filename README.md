@@ -8,4 +8,5 @@ This example shows how AI can use trusted API data to avoid generating incorrect
 
 [Demo Link](http://jpcocks.com/rag/)
 
+*Disclaimer: This is just a quick demo and should not be used as investment advice.*
 
