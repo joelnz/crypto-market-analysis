@@ -1,4 +1,4 @@
-# crypto-market-analysis
+# Real-time Crypto Market Overview
 
 Real-time crypto market analysis built with Vue.js and Nuxt.js. 
 
